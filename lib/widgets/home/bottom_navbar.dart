@@ -1,0 +1,120 @@
+import 'package:flutter/material.dart';
+
+class BottomNavBar extends StatefulWidget {
+  final int activeIndex;
+  final Function(int) onActiveIndexChange;
+
+  const BottomNavBar(
+      {Key key, this.activeIndex = 0, @required this.onActiveIndexChange})
+      : super(key: key);
+
+  @override
+  _BottomNavBarState createState() => _BottomNavBarState();
+}
+
+class _BottomNavBarState extends State<BottomNavBar> {
+  int _activeIndex;
+  Function(int) get _onActiveIndexChanged => widget.onActiveIndexChange;
+
+  @override
+  void initState() {
+    _activeIndex = widget.activeIndex;
+    super.initState();
+  }
+
+  double get _deviceWidth => MediaQuery.of(context).size.width;
+  Color get _accentColor => Theme.of(context).accentColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 60.0,
+      child: Stack(
+        children: <Widget>[
+          Positioned(
+            bottom: 0.0,
+            child: BottomAppBar(
+              shape: CircularNotchedRectangle(),
+              child: Container(
+                width: _deviceWidth,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    _buildBottomNavBarItem(
+                      index: 0,
+                      icon: Icons.home,
+                    ),
+                    _buildBottomNavBarItem(
+                      index: 1,
+                      icon: Icons.person,
+                    ),
+                    _buildBottomNavBarItem(
+                      index: 2,
+                      icon: Icons.notifications_none,
+                    ),
+                    Container(
+                      width: _deviceWidth / 6,
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  double _getItemSize({@required int index}) {
+    return index == _activeIndex ? 40.0 : 35.0;
+  }
+
+  Color _getItemColor({@required int index}) {
+    return index == _activeIndex ? _accentColor : Colors.grey[300];
+  }
+
+  Widget _buildBottomNavBarItem(
+      {@required int index, @required IconData icon}) {
+    final double itemWidth = _deviceWidth / 5;
+
+    return Container(
+      width: itemWidth,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          IconButton(
+            icon: Icon(
+              icon,
+              size: _getItemSize(index: index),
+              color: _getItemColor(index: index),
+            ),
+            onPressed: () {
+              if (_activeIndex != index) {
+                setState(() {
+                  _activeIndex = index;
+                  _onActiveIndexChanged(index);
+                });
+              }
+            },
+          ),
+          Visibility(
+            visible: index == _activeIndex,
+            child: Container(
+              height: 5.0,
+              width: itemWidth / 5,
+              margin: EdgeInsets.only(bottom: 5.0),
+              decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(50.0),
+                    topRight: Radius.circular(50.0),
+                  )),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
