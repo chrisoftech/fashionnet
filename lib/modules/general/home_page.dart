@@ -1,5 +1,6 @@
 import 'package:fashionnet/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
 class HomePage extends StatelessWidget {
@@ -12,6 +13,8 @@ class HomePage extends StatelessWidget {
       appBar: _buildAppBar(context),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       floatingActionButton: FloatingActionButton(
+        elevation: 7.0,
+        highlightElevation: 10.0,
         child: Icon(Icons.add_a_photo, size: 32.0, color: Colors.white),
         onPressed: () {
           print('FAB Clicked');
@@ -35,9 +38,7 @@ class HomePage extends StatelessWidget {
             ),
             SizedBox(height: 10.0),
             LatestPosts(),
-            Flexible(
-              child: Container(),
-            )
+            SuggestedPosts()
           ],
         ),
       ),
@@ -63,7 +64,6 @@ class HomePage extends StatelessWidget {
       title: Text(
         'FashionNet',
         style: TextStyle(
-            // color: Theme.of(context).accentColor,
             fontWeight: FontWeight.bold,
             fontSize: 35.0,
             foreground: new Paint()..shader = linearGradient),
@@ -73,43 +73,6 @@ class HomePage extends StatelessWidget {
         _buildAppbarActionWidgets(context: context, icon: Icons.person_outline),
         _buildAppbarActionWidgets(context: context, icon: Icons.more_vert),
       ],
-
-      // Row(
-      //   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //   crossAxisAlignment: CrossAxisAlignment.center,
-      //   children: <Widget>[
-      //     Icon(
-      //       Icons.menu,
-      //       size: 30.0,
-      //       color: Theme.of(context).accentColor,
-      //     ),
-      //     SizedBox(width: 10.0),
-      //     Text(
-      //       'FashionNet',
-      //       style: TextStyle(
-      //           // color: Theme.of(context).accentColor,
-      //           fontWeight: FontWeight.bold,
-      //           fontSize: 35.0,
-      //           foreground: new Paint()..shader = linearGradient),
-      //     ),
-      //     Spacer(),
-      //     Icon(
-      //       Icons.search,
-      //       size: 30.0,
-      //       color: Theme.of(context).accentColor,
-      //     ),
-      //     Icon(
-      //       Icons.person_outline,
-      //       size: 30.0,
-      //       color: Theme.of(context).accentColor,
-      //     ),
-      //     Icon(
-      //       Icons.more_vert,
-      //       size: 30.0,
-      //       color: Theme.of(context).accentColor,
-      //     ),
-      //   ],
-      // ),
     );
   }
 

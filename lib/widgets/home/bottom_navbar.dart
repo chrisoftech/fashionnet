@@ -47,11 +47,11 @@ class _BottomNavBarState extends State<BottomNavBar> {
                     ),
                     _buildBottomNavBarItem(
                       index: 1,
-                      icon: Icons.person,
+                      icon: Icons.rss_feed,
                     ),
                     _buildBottomNavBarItem(
                       index: 2,
-                      icon: Icons.notifications_none,
+                      icon: Icons.bookmark_border,
                     ),
                     Container(
                       width: _deviceWidth / 6,

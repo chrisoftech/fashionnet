@@ -23,10 +23,10 @@ class _CategoryNavBarState extends State<CategoryNavBar> {
 
   List<String> _categories = <String>[
     'Latest',
-    'General',
     'Wears',
     'Shoes',
     'Jeweries',
+    'Others',
   ];
 
   @override

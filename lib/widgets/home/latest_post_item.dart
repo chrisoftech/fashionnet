@@ -67,6 +67,7 @@ class LatestPostItem extends StatelessWidget {
                               title: Text('by John Doe'),
                               subtitle: Text('Wednessday 22, May 2019'),
                               trailing: IconButton(
+                                tooltip: 'Like this post',
                                 icon: Icon(
                                   Icons.favorite,
                                   color: Colors.red,
@@ -86,6 +87,16 @@ class LatestPostItem extends StatelessWidget {
                               subtitle: Text(
                                   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc dolor purus, isaculis ac dolor nec, laoreet imperdiet eros.',
                                   overflow: TextOverflow.ellipsis),
+                              trailing: IconButton(
+                                tooltip: 'Save this post',
+                                icon: Icon(
+                                  Icons.bookmark,
+                                  color: Colors.black54,
+                                ),
+                                onPressed: () {
+                                  print('post isFavorite');
+                                },
+                              ),
                             ),
                           ),
                           SizedBox(height: 20.0)
