@@ -103,7 +103,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
             visible: index == _activeIndex,
             child: Container(
               height: 5.0,
-              width: itemWidth / 5,
+              width: itemWidth / 4,
               margin: EdgeInsets.only(bottom: 5.0),
               decoration: BoxDecoration(
                   color: Colors.grey[300],

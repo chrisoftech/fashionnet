@@ -5,6 +5,9 @@ import 'package:flutter/widgets.dart';
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    double _deviceHeight = MediaQuery.of(context).size.height;
+    double _deviceWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: _buildAppBar(context),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
@@ -19,12 +22,26 @@ class HomePage extends StatelessWidget {
           print(index);
         },
       ),
+      body: Container(
+        height: _deviceHeight,
+        width: _deviceWidth,
+        child: Column(
+          children: <Widget>[
+            SizedBox(height: 10.0),
+            CategoryNavBar(
+              onActiveCategoryChange: (String categoryId) {
+                print(categoryId);
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
 
   final Shader linearGradient = LinearGradient(
-    colors: <Color>[Color(0xffDA44bb), Color(0xff8921aa)],
-  ).createShader(new Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
+    colors: <Color>[Colors.orange, Colors.indigo],
+  ).createShader(new Rect.fromLTWH(0.0, 0.0, 250.0, 70.0));
 
   AppBar _buildAppBar(BuildContext context) {
     return AppBar(
