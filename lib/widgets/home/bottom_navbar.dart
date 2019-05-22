@@ -23,7 +23,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
   }
 
   double get _deviceWidth => MediaQuery.of(context).size.width;
-  Color get _accentColor => Theme.of(context).accentColor;
+  // Color get _accentColor => Theme.of(context).accentColor;
+  Color get _primaryColor => Theme.of(context).primaryColor;
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +72,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   }
 
   Color _getItemColor({@required int index}) {
-    return index == _activeIndex ? _accentColor : Colors.grey[300];
+    return index == _activeIndex ? _primaryColor : Colors.grey[300];
   }
 
   Widget _buildBottomNavBarItem(
