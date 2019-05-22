@@ -9,6 +9,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'FashionNet',
       theme: ThemeData(
+        fontFamily: 'QuickSand',
         primarySwatch: Colors.indigo,
         accentColor: Colors.orange,
       ),

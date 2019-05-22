@@ -81,8 +81,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
     return Container(
       width: itemWidth,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           IconButton(
             icon: Icon(
@@ -99,19 +97,25 @@ class _BottomNavBarState extends State<BottomNavBar> {
               }
             },
           ),
-          Visibility(
-            visible: index == _activeIndex,
-            child: Container(
-              height: 5.0,
-              width: itemWidth / 4,
-              margin: EdgeInsets.only(bottom: 5.0),
-              decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(50.0),
-                    topRight: Radius.circular(50.0),
-                  )),
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(width: 7.0),
+              Visibility(
+                visible: index == _activeIndex,
+                child: Container(
+                  height: 5.0,
+                  width: itemWidth / 4,
+                  margin: EdgeInsets.only(bottom: 5.0),
+                  decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(50.0),
+                        topRight: Radius.circular(50.0),
+                      )),
+                ),
+              ),
+            ],
           )
         ],
       ),

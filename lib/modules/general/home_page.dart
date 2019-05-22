@@ -33,6 +33,11 @@ class HomePage extends StatelessWidget {
                 print(categoryId);
               },
             ),
+            SizedBox(height: 10.0),
+            LatestPosts(),
+            Flexible(
+              child: Container(),
+            )
           ],
         ),
       ),
