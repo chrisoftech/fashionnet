@@ -14,7 +14,7 @@ class LatestPosts extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             itemCount: 9,
             itemBuilder: (BuildContext context, int index) {
-              return LatestPostItem(
+              return PostItemCardLarge(
                   postIndex: index == 0 ? 9 : index,
                   constraints: constraints,
                   deviceWidth: _deviceWidth);

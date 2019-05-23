@@ -15,21 +15,20 @@ class _HomePageState extends State<HomePage> {
   // Color get _accentColor => Theme.of(context).accentColor;
   Color get _primaryColor => Theme.of(context).primaryColor;
 
-  final Duration animationDuration = Duration(milliseconds: 300);
-  final Duration delay = Duration(milliseconds: 300);
+  final Duration _animationDuration = Duration(milliseconds: 300);
+  final Duration _delay = Duration(milliseconds: 300);
 
-  GlobalKey _rectGetterKey = RectGetter.createGlobalKey(); //<--Create a key
-  Rect _rect; //<--Declare field of rect
+  GlobalKey _rectGetterFABKey = RectGetter.createGlobalKey();
+  GlobalKey _rectGetterSearchKey = RectGetter.createGlobalKey();
+
+  Rect _rect;
 
   void _onFABTap() async {
-    setState(() => _rect = RectGetter.getRectFromKey(
-        _rectGetterKey)); //<-- set _rect to be size of fab
+    setState(() => _rect = RectGetter.getRectFromKey(_rectGetterFABKey));
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      //<-- on the next frame...
-      setState(() => _rect = _rect.inflate(1.3 *
-          MediaQuery.of(context).size.longestSide)); //<-- set rect to be big
-      Future.delayed(animationDuration + delay,
-          _navigateToPostFormPage); //<-- after delay, go to next page
+      setState(() =>
+          _rect = _rect.inflate(1.3 * MediaQuery.of(context).size.longestSide));
+      Future.delayed(_animationDuration + _delay, _navigateToPostFormPage);
     });
   }
 
@@ -39,22 +38,19 @@ class _HomePageState extends State<HomePage> {
         .then((_) => setState(() => _rect = null));
   }
 
-  Widget _buildRipple() {
-    if (_rect == null) {
-      return Container();
-    }
-    return AnimatedPositioned(
-      //<--replace Positioned with AnimatedPositioned
-      duration: animationDuration, //<--specify the animation duration
-      left: _rect.left,
-      right: MediaQuery.of(context).size.width - _rect.right,
-      top: _rect.top,
-      bottom: MediaQuery.of(context).size.height - _rect.bottom,
-      child: Container(
-        decoration: BoxDecoration(
-            shape: BoxShape.circle, color: Theme.of(context).primaryColor),
-      ),
-    );
+  void _onSearchTap() async {
+    setState(() => _rect = RectGetter.getRectFromKey(_rectGetterSearchKey));
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      setState(() =>
+          _rect = _rect.inflate(1.3 * MediaQuery.of(context).size.longestSide));
+      Future.delayed(_animationDuration + _delay, _navigateToSearchPage);
+    });
+  }
+
+  void _navigateToSearchPage() {
+    Navigator.of(context)
+        .push(FadeRouteBuilder(page: SearchForm()))
+        .then((_) => setState(() => _rect = null));
   }
 
   @override
@@ -65,7 +61,7 @@ class _HomePageState extends State<HomePage> {
     return Stack(
       children: <Widget>[
         _buildScaffold(context, _deviceHeight, _deviceWidth),
-        _buildRipple()
+        Ripple(animationDuration: _animationDuration, rect: _rect)
       ],
     );
   }
@@ -76,43 +72,42 @@ class _HomePageState extends State<HomePage> {
       appBar: _buildAppBar(context),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       floatingActionButton: RectGetter(
-        key: _rectGetterKey,
-        child: FloatingActionButton(
-          elevation: 7.0,
-          highlightElevation: 10.0,
-          backgroundColor: Theme.of(context).primaryColor,
-          child: Icon(Icons.add_a_photo, size: 32.0, color: Colors.white),
-          onPressed: _onFABTap,
-        ),
+        key: _rectGetterFABKey,
+        child: _buildFloatingActionButton(context),
       ),
       bottomNavigationBar: BottomNavBar(
         onActiveIndexChange: (int index) {
           print(index);
         },
       ),
-      body: Container(
-        height: _deviceHeight,
-        width: _deviceWidth,
-        child: Column(
-          children: <Widget>[
-            SizedBox(height: 10.0),
-            CategoryNavBar(
-              onActiveCategoryChange: (String categoryId) {
-                print(categoryId);
-              },
-            ),
-            SizedBox(height: 10.0),
-            LatestPosts(),
-            SuggestedPosts()
-          ],
-        ),
-      ),
+      body: _buildPageBody(_deviceHeight, _deviceWidth),
     );
   }
 
   final Shader linearGradient = LinearGradient(
     colors: <Color>[Colors.orange, Colors.indigo],
   ).createShader(new Rect.fromLTWH(0.0, 0.0, 250.0, 70.0));
+
+  Widget _buildAppbarActionWidgets(
+      {@required BuildContext context,
+      @required int index,
+      @required IconData icon}) {
+    return InkWell(
+      onTap: () {
+        if (index == 0) {
+          _onSearchTap();
+        }
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(2.0),
+        child: Icon(
+          icon,
+          size: 30.0,
+          color: _primaryColor,
+        ),
+      ),
+    );
+  }
 
   AppBar _buildAppBar(BuildContext context) {
     return AppBar(
@@ -134,25 +129,46 @@ class _HomePageState extends State<HomePage> {
             foreground: new Paint()..shader = linearGradient),
       ),
       actions: <Widget>[
-        _buildAppbarActionWidgets(context: context, icon: Icons.search),
-        _buildAppbarActionWidgets(context: context, icon: Icons.person_outline),
-        _buildAppbarActionWidgets(context: context, icon: Icons.more_vert),
+        RectGetter(
+          key: _rectGetterSearchKey,
+          child: _buildAppbarActionWidgets(
+              context: context, index: 0, icon: Icons.search),
+        ),
+        _buildAppbarActionWidgets(
+            context: context, index: 1, icon: Icons.person_outline),
+        _buildAppbarActionWidgets(
+            context: context, index: 2, icon: Icons.more_vert),
       ],
     );
   }
 
-  InkWell _buildAppbarActionWidgets(
-      {@required BuildContext context, @required IconData icon}) {
-    return InkWell(
-      onTap: () {},
-      child: Padding(
-        padding: const EdgeInsets.all(2.0),
-        child: Icon(
-          icon,
-          size: 30.0,
-          color: _primaryColor,
-        ),
+  Container _buildPageBody(double _deviceHeight, double _deviceWidth) {
+    return Container(
+      height: _deviceHeight,
+      width: _deviceWidth,
+      child: Column(
+        children: <Widget>[
+          SizedBox(height: 10.0),
+          CategoryNavBar(
+            onActiveCategoryChange: (String categoryId) {
+              print(categoryId);
+            },
+          ),
+          SizedBox(height: 10.0),
+          LatestPosts(),
+          SuggestedPosts()
+        ],
       ),
+    );
+  }
+
+  FloatingActionButton _buildFloatingActionButton(BuildContext context) {
+    return FloatingActionButton(
+      elevation: 7.0,
+      highlightElevation: 10.0,
+      backgroundColor: Theme.of(context).primaryColor,
+      child: Icon(Icons.add_a_photo, size: 32.0, color: Colors.white),
+      onPressed: _onFABTap,
     );
   }
 }

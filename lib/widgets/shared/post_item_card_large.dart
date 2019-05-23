@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class LatestPostItem extends StatelessWidget {
-  const LatestPostItem({
+class PostItemCardLarge extends StatelessWidget {
+  const PostItemCardLarge({
     Key key,
     @required this.postIndex,
     @required this.constraints,
@@ -91,10 +91,10 @@ class LatestPostItem extends StatelessWidget {
                                 tooltip: 'Save this post',
                                 icon: Icon(
                                   Icons.bookmark,
-                                  color: Colors.black54,
+                                  color: Theme.of(context).accentColor,
                                 ),
                                 onPressed: () {
-                                  print('post isFavorite');
+                                  print('post saved');
                                 },
                               ),
                             ),

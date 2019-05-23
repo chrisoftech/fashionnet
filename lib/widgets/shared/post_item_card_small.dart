@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 
-class SuggestedPostItem extends StatelessWidget {
+class PostItemCardSmall extends StatelessWidget {
   final BoxConstraints constraints;
   final int postIndex;
 
-  const SuggestedPostItem(
-      {Key key, @required this.constraints, @required this.postIndex})
+  const PostItemCardSmall(
+      {Key key,
+      @required this.constraints,
+      @required this.postIndex})
       : super(key: key);
 
   int get _postIndex => postIndex;
 
   @override
   Widget build(BuildContext context) {
-    final double _maxHeight = constraints.maxHeight;
+    // final double _maxHeight = constraints.maxHeight;
     final double _maxWidth = constraints.maxWidth;
 
-    final double _containerHeight =
-        _maxHeight <= 264.0 ? 140.0 : _maxHeight * 0.55;
+    final double _containerHeight = 150.0;
 
     final double _containerWidth =
         _maxWidth * 0.90; // 90% of total device width.
@@ -26,8 +27,7 @@ class SuggestedPostItem extends StatelessWidget {
     final double _postImageContainerWidth =
         _maxWidth * 0.25; // 25% of total device width.
 
-    final double _postContainerHeight =
-        _containerHeight - 15.0; // 25% of total device width.
+    final double _postContainerHeight = _containerHeight - 15.0;
 
     return Container(
       height: _containerHeight,

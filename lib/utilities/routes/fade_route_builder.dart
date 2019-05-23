@@ -11,3 +11,21 @@ class FadeRouteBuilder<T> extends PageRouteBuilder<T> {
           },
         );
 }
+
+class FadeInAndOutRouteBuilder<T> extends PageRouteBuilder<T> {
+  final Widget enterPage;
+  final Widget exitPage;
+
+  FadeInAndOutRouteBuilder({@required this.enterPage, @required this.exitPage})
+      : super(
+          pageBuilder: (context, animation1, animation2) => enterPage,
+          transitionsBuilder: (context, animation1, animation2, child) {
+            return Stack(
+              children: <Widget>[
+                FadeTransition(opacity: animation1, child: enterPage),
+                FadeTransition(opacity: animation2, child: exitPage),
+              ],
+            );
+          },
+        );
+}

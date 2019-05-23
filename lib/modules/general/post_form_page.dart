@@ -4,7 +4,10 @@ class PostFormPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Post Form Page'),),
+      backgroundColor: Theme.of(context).primaryColor,
+      appBar: AppBar(
+        title: Text('Post Form Page'),
+      ),
     );
   }
 }
