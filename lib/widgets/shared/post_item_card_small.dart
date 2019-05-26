@@ -1,21 +1,16 @@
 import 'package:flutter/material.dart';
 
 class PostItemCardSmall extends StatelessWidget {
-  final BoxConstraints constraints;
   final int postIndex;
 
-  const PostItemCardSmall(
-      {Key key,
-      @required this.constraints,
-      @required this.postIndex})
+  const PostItemCardSmall({Key key, @required this.postIndex})
       : super(key: key);
 
   int get _postIndex => postIndex;
 
   @override
   Widget build(BuildContext context) {
-    // final double _maxHeight = constraints.maxHeight;
-    final double _maxWidth = constraints.maxWidth;
+    final double _maxWidth = MediaQuery.of(context).size.width;
 
     final double _containerHeight = 150.0;
 

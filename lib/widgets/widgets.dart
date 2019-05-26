@@ -8,6 +8,7 @@ export 'home/latest_posts.dart';
 
 export 'home/suggested_posts.dart';
 
+export 'shared/post_item_card_default.dart';
 export 'shared/post_item_card_large.dart';
 export 'shared/post_item_card_small.dart';
 export 'shared/search_form.dart';

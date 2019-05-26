@@ -90,6 +90,8 @@ class _HomePageState extends State<HomePage> {
       onTap: () {
         if (index == 0) {
           Navigator.of(context).pushNamed('/search');
+        } else if (index == 1) {
+           Navigator.of(context).pushNamed('/profile');
         }
       },
       child: Padding(

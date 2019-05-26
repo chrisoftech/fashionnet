@@ -30,9 +30,7 @@ class SearchForm extends StatelessWidget {
             size: 32.0,
             color: Colors.white,
           ),
-          onPressed: () => Navigator.pushReplacement(
-              context, FadeRouteBuilder(page: HomePage())),
-          // FadeInAndOutRouteBuilder(enterPage: HomePage(), exitPage: this)),
+          onPressed: () => Navigator.of(context).pop(),
         ),
         body: _buildSearchBody(
             _deviceheight, _deviceWidth, _parentContentPadding),
@@ -109,8 +107,7 @@ class SearchForm extends StatelessWidget {
                       child: ListView.builder(
                         itemCount: 9,
                         itemBuilder: (BuildContext context, int index) {
-                          return PostItemCardSmall(
-                              constraints: constraints, postIndex: index);
+                          return PostItemCardSmall(postIndex: index);
                         },
                       ),
                     )

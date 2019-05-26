@@ -32,8 +32,7 @@ class SuggestedPosts extends StatelessWidget {
                     itemBuilder: (BuildContext context, int index) {
                       final int postIndex = index == 0 ? 9 : index;
 
-                      return PostItemCardSmall(
-                          constraints: constraints, postIndex: postIndex);
+                      return PostItemCardSmall(postIndex: postIndex);
                     },
                   ),
                 ),
