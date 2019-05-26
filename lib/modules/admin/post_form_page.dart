@@ -49,6 +49,8 @@ class PostFormPage extends StatelessWidget {
       child: ButtonBar(
         children: <Widget>[
           FloatingActionButton(
+            elevation: 8.0,
+            highlightElevation: 10.0,
             backgroundColor: Theme.of(context).primaryColor,
             child: Icon(
               Icons.save,

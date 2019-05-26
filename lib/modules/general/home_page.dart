@@ -38,20 +38,14 @@ class _HomePageState extends State<HomePage> {
         .then((_) => setState(() => _rect = null));
   }
 
-  void _onSearchTap() async {
-    setState(() => _rect = RectGetter.getRectFromKey(_rectGetterSearchKey));
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      setState(() =>
-          _rect = _rect.inflate(1.3 * MediaQuery.of(context).size.longestSide));
-      Future.delayed(_animationDuration + _delay, _navigateToSearchPage);
-    });
-  }
-
-  void _navigateToSearchPage() {
-    Navigator.of(context)
-        .push(FadeRouteBuilder(page: SearchForm()))
-        .then((_) => setState(() => _rect = null));
-  }
+  // void _onSearchTap() async {
+  //   setState(() => _rect = RectGetter.getRectFromKey(_rectGetterSearchKey));
+  //   WidgetsBinding.instance.addPostFrameCallback((_) {
+  //     setState(() =>
+  //         _rect = _rect.inflate(1.3 * MediaQuery.of(context).size.longestSide));
+  //     Future.delayed(_animationDuration + _delay, _navigateToSearchPage);
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +89,7 @@ class _HomePageState extends State<HomePage> {
     return InkWell(
       onTap: () {
         if (index == 0) {
-          _onSearchTap();
+          Navigator.of(context).pushNamed('/search');
         }
       },
       child: Padding(
