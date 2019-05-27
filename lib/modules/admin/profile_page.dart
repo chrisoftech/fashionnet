@@ -1,7 +1,27 @@
 import 'package:fashionnet/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
+  @override
+  _ProfilePageState createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  int _currentDisplayedPageIndex = 0;
+
+  final List<String> _postImages = [
+    '0',
+    '1',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9'
+  ];
+
   @override
   Widget build(BuildContext context) {
     final double _deviceHeight = MediaQuery.of(context).size.height;
@@ -15,66 +35,126 @@ class ProfilePage extends StatelessWidget {
             ? (_deviceWidth - _postContainerWidth)
             : 0.0;
 
-    final List<String> _postImages = [
-      '0',
-      '1',
-      '2',
-      '3',
-      '4',
-      '5',
-      '6',
-      '7',
-      '8',
-      '9'
-    ];
-
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        elevation: 8.0,
-        highlightElevation: 10.0,
-        backgroundColor: Theme.of(context).primaryColor,
-        child: Icon(
-          Icons.add_a_photo,
-          size: 32.0,
-          color: Colors.white,
-        ),
-        onPressed: () {},
-      ),
+      floatingActionButton: _buildProfileFAB(),
       body: CustomScrollView(
         slivers: <Widget>[
-          SliverAppBar(
-            pinned: true,
-            title: Text('John Doe'),
-            expandedHeight: 360.0,
-            actions: <Widget>[
-              Icon(Icons.email),
-              SizedBox(width: 5.0),
-              Icon(Icons.more_vert),
-            ],
-            flexibleSpace: FlexibleSpaceBar(
-              background: _buildFlexibleSpace(
-                  context: context,
-                  deviceHeight: _deviceHeight,
-                  deviceWidth: _deviceWidth),
-            ),
-            bottom: PreferredSize(
-                preferredSize: Size.fromHeight(5.0),
-                child: ProfileNavbar(
-                  onActiveIndexChange: (int index) {
-                    print(index);
-                  },
-                )),
-          ),
-          SliverList(
-            delegate:
-                SliverChildBuilderDelegate((BuildContext context, int index) {
-              return PostItemCardDefault(
-                postImages: _postImages,
-              );
-            }, childCount: 10),
-          ),
+          _buildSliverAppBar(context, _deviceHeight, _deviceWidth),
+          _buildDynamicSliverContent(),
         ],
       ),
+    );
+  }
+
+  Widget _buildDynamicSliverContent() {
+    Widget _dynamicSliverContent;
+
+    switch (_currentDisplayedPageIndex) {
+      case 0:
+        _dynamicSliverContent = _buildPostFeedTabPage();
+        break;
+
+      case 1:
+        _dynamicSliverContent = _buildSubscriptionTabPage();
+        break;
+
+      case 2:
+        _dynamicSliverContent = _buildGalleryTabPage();
+        break;
+
+      case 3:
+        _dynamicSliverContent = _buildProfileTabPage();
+        break;
+
+      default:
+        _dynamicSliverContent = _buildPostFeedTabPage();
+        break;
+    }
+
+    return _dynamicSliverContent;
+  }
+
+  SliverList _buildPostFeedTabPage() {
+    return SliverList(
+      delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
+        return PostItemCardDefault(
+          postImages: _postImages,
+        );
+      }, childCount: 10),
+    );
+  }
+
+  SliverToBoxAdapter _buildSubscriptionTabPage() {
+    return SliverToBoxAdapter(
+      child: Container(
+        child: Center(
+          child: Text('Subscriptions'),
+        ),
+      ),
+    );
+  }
+
+  SliverToBoxAdapter _buildGalleryTabPage() {
+    return SliverToBoxAdapter(
+      child: Container(
+        child: Center(
+          child: Text('Gallery'),
+        ),
+      ),
+    );
+  }
+
+  SliverToBoxAdapter _buildProfileTabPage() {
+    return SliverToBoxAdapter(
+      child: Container(
+        child: Center(
+          child: Text('Profile'),
+        ),
+      ),
+    );
+  }
+
+  SliverAppBar _buildSliverAppBar(
+      BuildContext context, double _deviceHeight, double _deviceWidth) {
+    return SliverAppBar(
+      pinned: true,
+      title: Text('John Doe'),
+      expandedHeight: 360.0,
+      actions: <Widget>[
+        Icon(Icons.email),
+        SizedBox(width: 5.0),
+        Icon(Icons.more_vert),
+      ],
+      flexibleSpace: FlexibleSpaceBar(
+        background: _buildFlexibleSpace(
+            context: context,
+            deviceHeight: _deviceHeight,
+            deviceWidth: _deviceWidth),
+      ),
+      bottom: PreferredSize(
+          preferredSize: Size.fromHeight(5.0),
+          child: ProfileNavbar(
+            onActiveIndexChange: (int index) {
+              setState(() {
+                _currentDisplayedPageIndex = index;
+              });
+              print(_currentDisplayedPageIndex);
+            },
+          )),
+    );
+  }
+
+  FloatingActionButton _buildProfileFAB() {
+    return FloatingActionButton(
+      elevation: 8.0,
+      highlightElevation: 10.0,
+      backgroundColor: Theme.of(context).primaryColor,
+      child: Icon(
+        Icons.add_a_photo,
+        size: 32.0,
+        color: Colors.white,
+      ),
+      onPressed: () => Navigator.of(context).pushNamed('/post-form'),
     );
   }
 
@@ -88,7 +168,6 @@ class ProfilePage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          // SizedBox(height: 20.0),
           Container(
             height: 120.0,
             width: 120.0,

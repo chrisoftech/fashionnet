@@ -45,7 +45,7 @@ class _ProfileNavbarState extends State<ProfileNavbar> {
                   children: <Widget>[
                     _buildBottomNavBarItem(
                       index: 0,
-                      icon: Icons.timeline,
+                      icon: Icons.rss_feed,
                     ),
                     _buildBottomNavBarItem(
                       index: 1,
