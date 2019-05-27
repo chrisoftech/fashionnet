@@ -4,7 +4,6 @@ import 'package:fashionnet/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:rect_getter/rect_getter.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -15,66 +14,45 @@ class _HomePageState extends State<HomePage> {
   // Color get _accentColor => Theme.of(context).accentColor;
   Color get _primaryColor => Theme.of(context).primaryColor;
 
-  final Duration _animationDuration = Duration(milliseconds: 300);
-  final Duration _delay = Duration(milliseconds: 300);
+  final _pageController = PageController(initialPage: 0, keepPage: false);
+  PageView _pageView;
 
-  GlobalKey _rectGetterFABKey = RectGetter.createGlobalKey();
-  GlobalKey _rectGetterSearchKey = RectGetter.createGlobalKey();
-
-  Rect _rect;
-
-  void _onFABTap() async {
-    setState(() => _rect = RectGetter.getRectFromKey(_rectGetterFABKey));
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      setState(() =>
-          _rect = _rect.inflate(1.3 * MediaQuery.of(context).size.longestSide));
-      Future.delayed(_animationDuration + _delay, _navigateToPostFormPage);
-    });
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
-
-  void _navigateToPostFormPage() {
-    Navigator.of(context)
-        .push(FadeRouteBuilder(page: PostFormPage()))
-        .then((_) => setState(() => _rect = null));
-  }
-
-  // void _onSearchTap() async {
-  //   setState(() => _rect = RectGetter.getRectFromKey(_rectGetterSearchKey));
-  //   WidgetsBinding.instance.addPostFrameCallback((_) {
-  //     setState(() =>
-  //         _rect = _rect.inflate(1.3 * MediaQuery.of(context).size.longestSide));
-  //     Future.delayed(_animationDuration + _delay, _navigateToSearchPage);
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
     double _deviceHeight = MediaQuery.of(context).size.height;
     double _deviceWidth = MediaQuery.of(context).size.width;
 
-    return Stack(
+    _pageView = PageView(
+      controller: _pageController,
+      onPageChanged: (int index) {
+        print('page changed to $index');
+      },
       children: <Widget>[
-        _buildScaffold(context, _deviceHeight, _deviceWidth),
-        Ripple(animationDuration: _animationDuration, rect: _rect)
+        _buildPageBody(_deviceHeight, _deviceWidth),
+        Container(child: Center(child: Text('Feed Page'))),
+        Container(child: Center(child: Text('Bookmark Page'))),
       ],
     );
-  }
 
-  Scaffold _buildScaffold(
-      BuildContext context, double _deviceHeight, double _deviceWidth) {
     return Scaffold(
       appBar: _buildAppBar(context),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-      floatingActionButton: RectGetter(
-        key: _rectGetterFABKey,
-        child: _buildFloatingActionButton(context),
-      ),
+      floatingActionButton: _buildFloatingActionButton(context),
       bottomNavigationBar: BottomNavBar(
         onActiveIndexChange: (int index) {
-          print(index);
+          setState(() {
+            _pageView.onPageChanged(index);
+            _pageController.jumpToPage(index);
+          });
         },
       ),
-      body: _buildPageBody(_deviceHeight, _deviceWidth),
+      body: _pageView,
     );
   }
 
@@ -91,7 +69,7 @@ class _HomePageState extends State<HomePage> {
         if (index == 0) {
           Navigator.of(context).pushNamed('/search');
         } else if (index == 1) {
-           Navigator.of(context).pushNamed('/profile');
+          Navigator.of(context).pushNamed('/profile');
         }
       },
       child: Padding(
@@ -125,11 +103,8 @@ class _HomePageState extends State<HomePage> {
             foreground: new Paint()..shader = linearGradient),
       ),
       actions: <Widget>[
-        RectGetter(
-          key: _rectGetterSearchKey,
-          child: _buildAppbarActionWidgets(
-              context: context, index: 0, icon: Icons.search),
-        ),
+        _buildAppbarActionWidgets(
+            context: context, index: 0, icon: Icons.search),
         _buildAppbarActionWidgets(
             context: context, index: 1, icon: Icons.person_outline),
         _buildAppbarActionWidgets(
@@ -164,7 +139,7 @@ class _HomePageState extends State<HomePage> {
       highlightElevation: 10.0,
       backgroundColor: Theme.of(context).primaryColor,
       child: Icon(Icons.add_a_photo, size: 32.0, color: Colors.white),
-      onPressed: _onFABTap,
+      onPressed: () => Navigator.of(context).pushNamed('/post-form'),
     );
   }
 }

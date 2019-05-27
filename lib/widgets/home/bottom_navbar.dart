@@ -23,7 +23,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   }
 
   double get _deviceWidth => MediaQuery.of(context).size.width;
-  // Color get _accentColor => Theme.of(context).accentColor;
+  Color get _accentColor => Theme.of(context).accentColor;
   Color get _primaryColor => Theme.of(context).primaryColor;
 
   @override
@@ -109,7 +109,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                   width: itemWidth / 4,
                   margin: EdgeInsets.only(bottom: 5.0),
                   decoration: BoxDecoration(
-                      color: Colors.grey[300],
+                      color: _accentColor,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(50.0),
                         topRight: Radius.circular(50.0),
