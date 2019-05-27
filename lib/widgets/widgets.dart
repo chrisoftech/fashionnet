@@ -8,6 +8,8 @@ export 'home/latest_posts.dart';
 
 export 'home/suggested_posts.dart';
 
+export 'profile/profile_navbar.dart';
+
 export 'shared/post_item_card_default.dart';
 export 'shared/post_item_card_large.dart';
 export 'shared/post_item_card_small.dart';
