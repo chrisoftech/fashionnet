@@ -14,6 +14,7 @@ class _HomePageState extends State<HomePage> {
   // Color get _accentColor => Theme.of(context).accentColor;
   Color get _primaryColor => Theme.of(context).primaryColor;
 
+  int _activePageIndex = 0;
   final _pageController = PageController(initialPage: 0, keepPage: false);
   PageView _pageView;
 
@@ -32,6 +33,7 @@ class _HomePageState extends State<HomePage> {
       controller: _pageController,
       onPageChanged: (int index) {
         print('page changed to $index');
+        setState(() => _activePageIndex = index);
       },
       children: <Widget>[
         _buildPageBody(_deviceHeight, _deviceWidth),
@@ -45,11 +47,9 @@ class _HomePageState extends State<HomePage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       floatingActionButton: _buildFloatingActionButton(context),
       bottomNavigationBar: BottomNavBar(
+        activeIndex: _activePageIndex,
         onActiveIndexChange: (int index) {
-          setState(() {
-            _pageView.onPageChanged(index);
-            _pageController.jumpToPage(index);
-          });
+          setState(() => _pageController.jumpToPage(index));
         },
       ),
       body: _pageView,

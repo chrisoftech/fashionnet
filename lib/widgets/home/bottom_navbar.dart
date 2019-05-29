@@ -17,9 +17,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
   Function(int) get _onActiveIndexChanged => widget.onActiveIndexChange;
 
   @override
-  void initState() {
+  void didUpdateWidget(Widget oldWidget) {
     _activeIndex = widget.activeIndex;
-    super.initState();
+    super.didUpdateWidget(oldWidget);
   }
 
   double get _deviceWidth => MediaQuery.of(context).size.width;
