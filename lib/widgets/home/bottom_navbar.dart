@@ -5,7 +5,7 @@ class BottomNavBar extends StatefulWidget {
   final Function(int) onActiveIndexChange;
 
   const BottomNavBar(
-      {Key key, this.activeIndex = 0, @required this.onActiveIndexChange})
+      {Key key, this.activeIndex, @required this.onActiveIndexChange})
       : super(key: key);
 
   @override
@@ -17,7 +17,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   Function(int) get _onActiveIndexChanged => widget.onActiveIndexChange;
 
   @override
-  void didUpdateWidget(Widget oldWidget) {
+  void didUpdateWidget(Widget oldWidget) { 
     _activeIndex = widget.activeIndex;
     super.didUpdateWidget(oldWidget);
   }
