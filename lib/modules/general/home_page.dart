@@ -18,6 +18,8 @@ class _HomePageState extends State<HomePage> {
   final _pageController = PageController(initialPage: 0, keepPage: false);
   PageView _pageView;
 
+  bool _isExpandedSuggestedPostsMode = false;
+
   @override
   void dispose() {
     _pageController.dispose();
@@ -126,8 +128,15 @@ class _HomePageState extends State<HomePage> {
             },
           ),
           SizedBox(height: 10.0),
-          LatestPosts(),
-          SuggestedPosts()
+          _isExpandedSuggestedPostsMode ? Container() : LatestPosts(),
+          SuggestedPosts(
+            isExpandedMode: _isExpandedSuggestedPostsMode,
+            onExpandSuggestedPostsToggle: (bool isExpanded) {
+              setState(() {
+                _isExpandedSuggestedPostsMode = isExpanded;
+              });
+            },
+          )
         ],
       ),
     );
