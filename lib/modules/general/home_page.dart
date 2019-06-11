@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
       },
       children: <Widget>[
         _buildPageBody(_deviceHeight, _deviceWidth),
-        Container(child: Center(child: Text('Feed Page'))),
+        FeedPage(),
         Container(child: Center(child: Text('Bookmark Page'))),
       ],
     );
