@@ -3,3 +3,4 @@ export 'admin/profile_page.dart';
 
 export 'general/home_page.dart';
 export 'general/feed_page.dart';
+export 'general/bookmark_page.dart';

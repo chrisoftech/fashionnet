@@ -1,3 +1,5 @@
+export 'bookmark/bookmarked_posts.dart';
+
 export 'feed/posts_feed.dart';
 
 export 'post_form/post_form_card.dart';

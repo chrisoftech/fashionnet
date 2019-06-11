@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
       children: <Widget>[
         _buildPageBody(_deviceHeight, _deviceWidth),
         FeedPage(),
-        Container(child: Center(child: Text('Bookmark Page'))),
+        BookmarkPage(),
       ],
     );
 
