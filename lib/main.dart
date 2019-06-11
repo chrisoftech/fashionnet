@@ -3,8 +3,12 @@ import 'package:fashionnet/modules/admin/profile_page.dart';
 import 'package:fashionnet/modules/general/home_page.dart';
 import 'package:fashionnet/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((_) => runApp(MyApp()));
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -18,7 +22,7 @@ class MyApp extends StatelessWidget {
         accentColor: Colors.orange,
       ),
       home: HomePage(),
-      routes: <String, WidgetBuilder> {
+      routes: <String, WidgetBuilder>{
         '/home': (BuildContext context) => HomePage(),
         '/search': (BuildContext context) => SearchForm(),
         '/post-form': (BuildContext context) => PostFormPage(),
