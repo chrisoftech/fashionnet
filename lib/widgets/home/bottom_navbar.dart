@@ -17,7 +17,13 @@ class _BottomNavBarState extends State<BottomNavBar> {
   Function(int) get _onActiveIndexChanged => widget.onActiveIndexChange;
 
   @override
-  void didUpdateWidget(Widget oldWidget) { 
+  void initState() {
+    _activeIndex = widget.activeIndex;
+    super.initState();
+  }
+
+  @override
+  void didUpdateWidget(Widget oldWidget) {
     _activeIndex = widget.activeIndex;
     super.didUpdateWidget(oldWidget);
   }
