@@ -46,50 +46,7 @@ class _SuggestedPostsState extends State<SuggestedPosts> {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8.0),
-                  child: Row(
-                    children: <Widget>[
-                      Text(
-                        'Suggested',
-                        style: TextStyle(
-                          fontSize: 23.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Spacer(),
-                      Material(
-                        elevation: 5.0,
-                        color: Colors.black54,
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(10.0),
-                            bottomLeft: Radius.circular(10.0)),
-                        child: InkWell(
-                          onTap: _toggleSuggestedPostsView,
-                          child: Container(
-                            padding: EdgeInsets.symmetric(horizontal: 10.0),
-                            decoration: BoxDecoration(
-                                // color: Colors.black54,
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(10.0),
-                                    bottomLeft: Radius.circular(10.0))),
-                            child: Row(
-                              children: <Widget>[
-                                Text(
-                                    _isExpandedMode ? 'Show Less' : 'Show More',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold)),
-                                Icon(
-                                    _isExpandedMode
-                                        ? Icons.arrow_drop_down
-                                        : Icons.arrow_drop_up,
-                                    size: 30.0,
-                                    color: Theme.of(context).accentColor),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                  child: _buildSuggestedPostsTitleRow(context: context),
                 ),
                 Expanded(
                   child: ListView.builder(
@@ -106,6 +63,64 @@ class _SuggestedPostsState extends State<SuggestedPosts> {
           );
         },
       ),
+    );
+  }
+
+  Widget _buildSuggestedPostsTitleRow({@required BuildContext context}) {
+    return Row(
+      children: <Widget>[
+        Text(
+          'Suggested',
+          style: TextStyle(
+            fontSize: 23.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        Spacer(),
+        Material(
+          elevation: 5.0,
+          color: Colors.black38,
+          borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(20.0),
+              bottomRight: Radius.circular(20.0)),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            child: Row(
+              children: <Widget>[
+                IconButton(
+                  icon: Icon(
+                      _isExpandedMode
+                          ? Icons.arrow_drop_down
+                          : Icons.arrow_drop_up,
+                      size: 40.0,
+                      color: Theme.of(context).accentColor),
+                  onPressed: _toggleSuggestedPostsView,
+                ),
+                Container(
+                  height: 30.0,
+                  width: 2.0,
+                  decoration: BoxDecoration(
+                    color: Colors.black38,
+                    border: Border.all(color: Colors.grey, width: 1.0),
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                ),
+                IconButton(
+                  icon: Icon(
+                    Icons.favorite,
+                    // size: 30.0,
+                    color: Colors.red,
+                  ),
+                  onPressed: () {
+                    print('favorite clicked');
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
+        SizedBox(width: 10.0),
+      ],
     );
   }
 }
