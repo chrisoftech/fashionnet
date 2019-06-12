@@ -59,6 +59,7 @@ flutter:
     - assets/images/temp8.jpg
     - assets/images/temp9.jpg
     - assets/images/auth_bg.jpg
+    - assets/images/map_img.jpg
     - assets/loader/loader.gif
     - assets/avatars/avatar.png
     - assets/avatars/ps-avatar.png

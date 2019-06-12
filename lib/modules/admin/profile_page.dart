@@ -63,7 +63,7 @@ class _ProfilePageState extends State<ProfilePage> {
         break;
 
       case 3:
-        _dynamicSliverContent = _buildProfileTabPage();
+        _dynamicSliverContent = ProfileTabPage();
         break;
 
       default:
@@ -88,17 +88,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return SliverToBoxAdapter(
       child: Container(
         child: Center(
-          child: Text('Gallery'),
-        ),
-      ),
-    );
-  }
-
-  SliverToBoxAdapter _buildProfileTabPage() {
-    return SliverToBoxAdapter(
-      child: Container(
-        child: Center(
-          child: Text('Profile'),
+          child: Text('Gallery comming soon!'),
         ),
       ),
     );
