@@ -30,10 +30,10 @@ class _ProfilePageState extends State<ProfilePage> {
     final double _postContainerWidth =
         _deviceWidth > 450.0 ? 450.0 : _deviceWidth;
 
-    final double _postContainerPaddingValue =
-        (_deviceWidth > _postContainerWidth)
-            ? (_deviceWidth - _postContainerWidth)
-            : 0.0;
+    // final double _postContainerPaddingValue =
+    //     (_deviceWidth > _postContainerWidth)
+    //         ? (_deviceWidth - _postContainerWidth)
+    //         : 0.0;
 
     return Scaffold(
       floatingActionButton: _buildProfileFAB(),
@@ -51,11 +51,11 @@ class _ProfilePageState extends State<ProfilePage> {
 
     switch (_currentDisplayedPageIndex) {
       case 0:
-        _dynamicSliverContent = _buildPostFeedTabPage();
+        _dynamicSliverContent = _buildPostTimelineTabPage();
         break;
 
       case 1:
-        _dynamicSliverContent = _buildSubscriptionTabPage();
+        _dynamicSliverContent = SubscriptionTabPage();
         break;
 
       case 2:
@@ -67,30 +67,20 @@ class _ProfilePageState extends State<ProfilePage> {
         break;
 
       default:
-        _dynamicSliverContent = _buildPostFeedTabPage();
+        _dynamicSliverContent = _buildPostTimelineTabPage();
         break;
     }
 
     return _dynamicSliverContent;
   }
 
-  SliverList _buildPostFeedTabPage() {
+  SliverList _buildPostTimelineTabPage() {
     return SliverList(
       delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
         return PostItemCardDefault(
           postImages: _postImages,
         );
       }, childCount: 10),
-    );
-  }
-
-  SliverToBoxAdapter _buildSubscriptionTabPage() {
-    return SliverToBoxAdapter(
-      child: Container(
-        child: Center(
-          child: Text('Subscriptions'),
-        ),
-      ),
     );
   }
 
@@ -195,6 +185,7 @@ class _ProfilePageState extends State<ProfilePage> {
             borderRadius: BorderRadius.circular(20.0),
             child: InkWell(
               splashColor: Colors.black38,
+              borderRadius: BorderRadius.circular(20.0),
               onTap: () {},
               child: Container(
                 // alignment: Alignment.center,
