@@ -20,11 +20,13 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.indigo,
         accentColor: Colors.orange,
       ),
-      home: HomePage(),
+      home: IntroPage(),
       routes: <String, WidgetBuilder>{
+        // '/': (BuildContext context) => AuthenticationPage(),
         '/home': (BuildContext context) => HomePage(),
         '/search': (BuildContext context) => SearchForm(),
         '/post-form': (BuildContext context) => PostFormPage(),
+        '/post-details': (BuildContext context) => PostDetailsPage(),
         '/profile': (BuildContext context) => ProfilePage(),
       },
     );

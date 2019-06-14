@@ -1,5 +1,6 @@
 // import 'package:cached_network_image/cached_network_image.dart';
 // import 'package:fashion_connect/models/models.dart';
+import 'package:fashionnet/modules/modules.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 // import 'package:intl/intl.dart';
@@ -31,13 +32,24 @@ class _PostItemCardDefaultState extends State<PostItemCardDefault> {
       children: <Widget>[
         Card(
           elevation: 8.0,
-          child: Container(
-            width: _contentWidth,
-            child: Column(
-              children: <Widget>[
-                _buildPostDetails(),
-                _buildPostCardBackgroundImage()
-              ],
+          child: InkWell(
+            onTap: () {
+              // Navigator.of(context).pushNamed('/post-details');
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) => PostDetailsPage(
+                            postImages: _postImages,
+                          )));
+            },
+            child: Container(
+              width: _contentWidth,
+              child: Column(
+                children: <Widget>[
+                  _buildPostDetails(),
+                  _buildPostCardBackgroundImage()
+                ],
+              ),
             ),
           ),
         ),
@@ -186,6 +198,4 @@ class _PostItemCardDefaultState extends State<PostItemCardDefault> {
       ],
     );
   }
-
-  
 }
