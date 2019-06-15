@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class PostDetailsPage extends StatefulWidget {
   final List<String> postImages;
 
-  const PostDetailsPage({Key key, @required this.postImages}) : super(key: key);
+  const PostDetailsPage({Key key, this.postImages}) : super(key: key);
 
   @override
   _PostDetailsPageState createState() => _PostDetailsPageState();
@@ -13,7 +13,20 @@ class PostDetailsPage extends StatefulWidget {
 class _PostDetailsPageState extends State<PostDetailsPage> {
   int _currentPostImageIndex = 0;
 
-  List<String> get _postImages => widget.postImages;
+  final List<String> _imageUrls = [
+    '1',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
+  ];
+
+  List<String> get _postImages =>
+      widget.postImages == null ? _imageUrls : widget.postImages;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +47,7 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
           child: CustomScrollView(
             slivers: <Widget>[
               SliverAppBar(
-                pinned: true,
+                // pinned: true,
                 title: Text(
                   'John Doe',
                   style: TextStyle(fontSize: 20.0),
@@ -87,8 +100,8 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
 
   Widget _buildActivePostImage() {
     return Container(
-      width: 8.0,
-      height: 8.0,
+      width: 9.0,
+      height: 9.0,
       margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
       decoration: BoxDecoration(
         shape: BoxShape.circle,
@@ -104,7 +117,8 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
         height: 8.0,
         margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
         decoration: BoxDecoration(
-            shape: BoxShape.circle, color: Color.fromRGBO(0, 0, 0, 0.4)));
+            shape: BoxShape.circle, color: Colors.grey));
+            // shape: BoxShape.circle, color: Color.fromRGBO(0, 0, 0, 0.4)));
   }
 
   Widget _buildPostImageCarouselIndicator() {
@@ -117,13 +131,14 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
     }
 
     return Positioned(
-        left: 0.0,
-        right: 0.0,
-        bottom: 20.0,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: dots,
-        ));
+      left: 0.0,
+      right: 0.0,
+      bottom: 20.0,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: dots,
+      ),
+    );
   }
 
   Widget _buildPostImageCarousel() {
@@ -159,6 +174,8 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
   }
 
   Widget _buildPostCardBackgroundImage() {
+    final double _deviceWidth = MediaQuery.of(context).size.width;
+
     return Stack(
       alignment: Alignment.center,
       children: <Widget>[
@@ -170,6 +187,38 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
         _postImages.length > 1
             ? _buildPostImageCarouselIndicator()
             : Container(),
+        Positioned(
+          bottom: 0.0,
+          height: 80.0,
+          width: _deviceWidth,
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Colors.transparent,
+                    Colors.black87,
+                  ]),
+            ),
+          ),
+        ),
+        Positioned(
+          top: 0.0,
+          height: 60.0,
+          width: _deviceWidth,
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                  colors: [
+                    Colors.transparent,
+                    Colors.black87,
+                  ]),
+            ),
+          ),
+        ),
       ],
     );
   }

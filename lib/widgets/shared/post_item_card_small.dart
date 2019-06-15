@@ -1,3 +1,4 @@
+import 'package:fashionnet/modules/modules.dart';
 import 'package:flutter/material.dart';
 
 class PostItemCardSmall extends StatelessWidget {
@@ -27,7 +28,10 @@ class PostItemCardSmall extends StatelessWidget {
     return Material(
       child: InkWell(
         onTap: () {
-          print('Suggested Item selected!');
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (BuildContext context) => PostDetailsPage()));
         },
         child: Container(
           height: _containerHeight,
