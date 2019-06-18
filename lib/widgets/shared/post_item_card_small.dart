@@ -44,7 +44,7 @@ class PostItemCardSmall extends StatelessWidget {
                 height: _postContainerHeight,
                 width: _postContentContainerWidth,
                 child: Card(
-                  elevation: 8.0,
+                  // elevation: 8.0,
                   child: Container(
                     padding: EdgeInsets.only(left: _maxWidth * 0.18),
                     decoration: BoxDecoration(

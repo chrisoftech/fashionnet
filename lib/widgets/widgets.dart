@@ -1,4 +1,4 @@
-export 'bookmark/bookmarked_posts.dart';
+// export 'bookmark/bookmarked_posts.dart';
 
 export 'feed/posts_feed.dart';
 

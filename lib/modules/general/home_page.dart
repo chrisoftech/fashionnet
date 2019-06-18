@@ -101,7 +101,7 @@ class _HomePageState extends State<HomePage> {
         'FashionNet',
         style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 35.0,
+            fontSize: 30.0,
             foreground: new Paint()..shader = linearGradient),
       ),
       actions: <Widget>[

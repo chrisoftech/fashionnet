@@ -60,11 +60,15 @@ class _PostItemCardDefaultState extends State<PostItemCardDefault> {
 
   Widget _buildActivePostImage() {
     return Container(
-        width: 8.0,
-        height: 8.0,
-        margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-        decoration: BoxDecoration(
-            shape: BoxShape.circle, color: Theme.of(context).accentColor));
+      width: 9.0,
+      height: 9.0,
+      margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: Colors.transparent,
+        border: Border.all(width: 2.0, color: Theme.of(context).accentColor),
+      ),
+    );
   }
 
   Widget _buildInactivePostImage() {

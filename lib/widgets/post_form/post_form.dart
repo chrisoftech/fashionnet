@@ -97,7 +97,8 @@ class _PostFormState extends State<PostForm> {
                       sectionTitle: 'Category Section',
                       sectionDetails:
                           'You can select up to 4 categories for a post'),
-                  _buildCategoryList()
+                  _buildCategoryList(),
+                  // SizedBox(height: 70.0),
                 ],
               ),
             ),
