@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       ),
       home: IntroPage(),
       routes: <String, WidgetBuilder>{
-        // '/': (BuildContext context) => AuthenticationPage(),
+        '/auth': (BuildContext context) => AuthPage(),
         '/home': (BuildContext context) => HomePage(),
         '/search': (BuildContext context) => SearchForm(),
         '/post-form': (BuildContext context) => PostFormPage(),

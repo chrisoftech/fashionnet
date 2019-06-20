@@ -79,7 +79,7 @@ class _IntroPageState extends State<IntroPage> {
                                   fontSize: 45.0,
                                   fontWeight: FontWeight.w900),
                             ),
-                            SizedBox(height: 50.0),
+                            SizedBox(height: 30.0),
                             Text(
                               'Connecting the world of fashion in your smart-phone',
                               textAlign: TextAlign.center,
@@ -118,8 +118,8 @@ class _IntroPageState extends State<IntroPage> {
                                     child: InkWell(
                                       borderRadius: BorderRadius.circular(30.0),
                                       onTap: () {
-                                        // Navigator.of(context)
-                                        //     .pushReplacementNamed('/home');
+                                        Navigator.of(context)
+                                            .pushNamed('/auth');
                                       },
                                       child: Container(
                                         height: 50.0,
