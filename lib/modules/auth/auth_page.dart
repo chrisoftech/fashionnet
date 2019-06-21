@@ -1,9 +1,12 @@
+import 'package:fashionnet/models/models.dart';
 import 'package:fashionnet/modules/modules.dart';
 import 'package:flutter/material.dart';
 
-enum AuthState { LOGIN, VERIFICATION, LOGGED_IN }
-
 class AuthPage extends StatefulWidget {
+  final AuthMode authMode;
+
+  const AuthPage({Key key, this.authMode = AuthMode.LOGIN}) : super(key: key);
+
   @override
   _AuthPageState createState() => _AuthPageState();
 }
@@ -11,6 +14,8 @@ class AuthPage extends StatefulWidget {
 class _AuthPageState extends State<AuthPage> {
   AuthState _authState = AuthState.LOGIN;
   final _phoneNumberController = TextEditingController();
+
+  AuthMode get _authMode => widget.authMode;
 
   @override
   Widget build(BuildContext context) {
@@ -123,7 +128,9 @@ class _AuthPageState extends State<AuthPage> {
         SizedBox(height: 10.0),
         _authState == AuthState.LOGIN
             ? Text(
-                'Sign in to continue to app',
+                _authMode == AuthMode.SIGNUP
+                    ? 'Sign up to continue to app'
+                    : 'Sign in to continue to app',
                 style: TextStyle(
                     color: Colors.white70,
                     fontSize: 20.0,
@@ -257,7 +264,9 @@ class _AuthPageState extends State<AuthPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                _authState == AuthState.LOGIN ? 'LOGIN' : 'VERIFY CODE',
+                _authMode == AuthMode.SIGNUP && _authState != AuthState.VERIFICATION
+                    ? 'SignUp'
+                    : (_authState == AuthState.LOGIN ? 'LOGIN' : 'VERIFY CODE'),
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 20.0,

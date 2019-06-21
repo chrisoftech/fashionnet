@@ -1,3 +1,5 @@
+import 'package:fashionnet/models/models.dart';
+import 'package:fashionnet/modules/modules.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -24,7 +26,12 @@ class _IntroPageState extends State<IntroPage> {
 
   void _handleTap() {
     HapticFeedback.vibrate();
-    print('sign-up button tapped');
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (BuildContext context) => AuthPage(authMode: AuthMode.SIGNUP),
+      ),
+    );
   }
 
   @override
@@ -112,7 +119,6 @@ class _IntroPageState extends State<IntroPage> {
                                 Expanded(
                                   child: Material(
                                     elevation: 5.0,
-                                    // color: Theme.of(context).primaryColor,
                                     color: Colors.transparent,
                                     borderRadius: BorderRadius.circular(30.0),
                                     child: InkWell(

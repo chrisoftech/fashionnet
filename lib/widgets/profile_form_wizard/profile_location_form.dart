@@ -44,7 +44,7 @@ class ProfileLocationForm extends StatelessWidget {
                           ),
                           SizedBox(height: 15.0),
                           TextFormField(
-                            maxLines: 2,
+                            maxLines: 3,
                             keyboardType: TextInputType.multiline,
                             decoration: InputDecoration(
                               hintText: 'Enter Location',
