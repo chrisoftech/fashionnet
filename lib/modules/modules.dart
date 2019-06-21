@@ -1,4 +1,5 @@
 export 'admin/post_form_page.dart';
+export 'admin/profile_form_wizard_page.dart';
 export 'admin/profile_page.dart';
 
 export 'auth/auth_page.dart';

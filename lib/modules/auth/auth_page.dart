@@ -1,3 +1,4 @@
+import 'package:fashionnet/modules/modules.dart';
 import 'package:flutter/material.dart';
 
 enum AuthState { LOGIN, VERIFICATION, LOGGED_IN }
@@ -236,7 +237,12 @@ class _AuthPageState extends State<AuthPage> {
               _authState = AuthState.VERIFICATION;
             } else if (_authState == AuthState.VERIFICATION) {
               _authState = AuthState.LOGGED_IN;
-              Navigator.of(context).pushReplacementNamed('/home');
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          ProfileFormWizardPage()));
+              // Navigator.of(context).pushReplacementNamed('/home');
             }
           });
         },

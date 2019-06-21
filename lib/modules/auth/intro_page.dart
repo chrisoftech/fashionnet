@@ -171,39 +171,6 @@ class _IntroPageState extends State<IntroPage> {
                                 ],
                               ),
                             ),
-                            // Row(
-                            //   children: <Widget>[
-                            //     Expanded(
-                            //       child: Material(
-                            //         elevation: 5.0,
-                            //         color: Colors.indigo,
-                            //         borderRadius: BorderRadius.circular(30.0),
-                            //         child: InkWell(
-                            //           borderRadius: BorderRadius.circular(30.0),
-                            //           onTap: () {
-                            //             // Navigator.of(context)
-                            //             //     .pushReplacementNamed('/home');
-                            //           },
-                            //           child: Container(
-                            //             height: 50.0,
-                            //             alignment: Alignment.center,
-                            //             decoration: BoxDecoration(
-                            //                 borderRadius:
-                            //                     BorderRadius.circular(30.0)),
-                            //             child: Text(
-                            //               'FACEBOOK',
-                            //               style: TextStyle(
-                            //                 color: Colors.white,
-                            //                 fontSize: 20.0,
-                            //                 fontWeight: FontWeight.bold,
-                            //               ),
-                            //             ),
-                            //           ),
-                            //         ),
-                            //       ),
-                            //     ),
-                            //   ],
-                            // ),
                           ],
                         ),
                       ),

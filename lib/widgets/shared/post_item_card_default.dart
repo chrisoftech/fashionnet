@@ -120,7 +120,7 @@ class _PostItemCardDefaultState extends State<PostItemCardDefault> {
               //   fit: BoxFit.cover,
               //   imageUrl: 'assets/images/temp$postImageUrl',
               //   placeholder: (context, url) =>
-              //       Center(child: new CircularProgressIndicator()),
+              //       Center(child: new CircularProgressIndicator()), 
               //   errorWidget: (context, url, error) =>
               //       Center(child: new Icon(Icons.error)),
               // );
