@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "346576487079",
+    "firebase_url": "https://fashionet-bf53d.firebaseio.com",
+    "project_id": "fashionet-bf53d",
+    "storage_bucket": "fashionet-bf53d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:346576487079:android:17257bd7f25241b8",
+        "android_client_info": {
+          "package_name": "com.example.fashionnet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "346576487079-ui0nr9enp33jr4qbl79rbd8qkrl5evuh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZmT4f2utZFCU3xyoyI84Io6abKKDwbuQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "346576487079-ui0nr9enp33jr4qbl79rbd8qkrl5evuh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
