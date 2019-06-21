@@ -1,4 +1,6 @@
 // export 'bookmark/bookmarked_posts.dart';
+export 'auth/auth_form.dart';
+export 'auth/verification_form.dart';
 
 export 'feed/posts_feed.dart';
 

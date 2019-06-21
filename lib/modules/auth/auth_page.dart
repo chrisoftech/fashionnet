@@ -1,5 +1,6 @@
 import 'package:fashionnet/models/models.dart';
 import 'package:fashionnet/modules/modules.dart';
+import 'package:fashionnet/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 class AuthPage extends StatefulWidget {
@@ -13,7 +14,8 @@ class AuthPage extends StatefulWidget {
 
 class _AuthPageState extends State<AuthPage> {
   AuthState _authState = AuthState.LOGIN;
-  final _phoneNumberController = TextEditingController();
+
+  String _phoneNumberController;
 
   AuthMode get _authMode => widget.authMode;
 
@@ -51,10 +53,15 @@ class _AuthPageState extends State<AuthPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   _buildLoginFormTitle(),
-                  SizedBox(height: 40.0),
+                  SizedBox(height: 30.0),
                   _authState == AuthState.LOGIN
-                      ? _buildLoginForm()
-                      : _buildVerificattionForm(),
+                      ? AuthForm()
+                      : VerificationForm(),
+                  Row(
+                    children: <Widget>[
+                      _buildLoginControlButton(),
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -89,7 +96,7 @@ class _AuthPageState extends State<AuthPage> {
 
   Widget _buildBottomGradientBackground(
       {@required deviceHeight, @required deviceWidth}) {
-    final double _gradientHeight = deviceHeight / 3.5;
+    final double _gradientHeight = deviceHeight / 4;
 
     return Positioned(
       bottom: 0.0,
@@ -137,7 +144,7 @@ class _AuthPageState extends State<AuthPage> {
                     fontWeight: FontWeight.bold),
               )
             : Text(
-                'Please, enter the verification code we sent to you (${_phoneNumberController.text})',
+                'Please, enter the verification code we sent to you ($_phoneNumberController)',
                 style: TextStyle(
                     color: Colors.white70,
                     fontSize: 18.0,
@@ -147,89 +154,23 @@ class _AuthPageState extends State<AuthPage> {
     );
   }
 
-  Widget _buildLoginForm() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          'Please enter your phone number',
-          style: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-        SizedBox(height: 10.0),
-        TextField(
-          keyboardType: TextInputType.number,
-          controller: _phoneNumberController,
-          style: TextStyle(color: Colors.white, fontSize: 20.0),
-          decoration: InputDecoration(filled: true, fillColor: Colors.white10),
-        ),
-        SizedBox(height: 30.0),
-        _buildLoginControlButton(),
-      ],
-    );
-  }
-
-  Widget _buildVerificationFormField() {
-    return Expanded(
-      child: TextField(
-        maxLength: 1,
-        textAlign: TextAlign.center,
-        keyboardType: TextInputType.number,
-        style: TextStyle(
-            color: Colors.white, fontSize: 25.0, fontWeight: FontWeight.bold),
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: Colors.white10,
-          counterText: '',
-          border: InputBorder.none,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildVerificattionForm() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Row(
-          children: <Widget>[
-            _buildVerificationFormField(),
-            SizedBox(width: 20.0),
-            _buildVerificationFormField(),
-            SizedBox(width: 20.0),
-            _buildVerificationFormField(),
-            SizedBox(width: 20.0),
-            _buildVerificationFormField(),
-          ],
-        ),
-        SizedBox(height: 20.0),
-        Material(
-          color: Colors.transparent,
-          child: InkWell(
-            onTap: () {
-              print('Request new code!');
-              setState(() {
-                if (_authState == AuthState.VERIFICATION) {
-                  _authState = AuthState.LOGIN;
-                }
-              });
-            },
-            child: Container(
-              padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
-              child: Text(
-                'Request a new code',
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-              ),
-            ),
-          ),
-        ),
-        SizedBox(height: 30.0),
-        _buildLoginControlButton()
-      ],
-    );
-  }
+  // Widget _buildVerificationFormField() {
+  //   return Expanded(
+  //     child: TextField(
+  //       maxLength: 1,
+  //       textAlign: TextAlign.center,
+  //       keyboardType: TextInputType.number,
+  //       style: TextStyle(
+  //           color: Colors.white, fontSize: 25.0, fontWeight: FontWeight.bold),
+  //       decoration: InputDecoration(
+  //         filled: true,
+  //         fillColor: Colors.white10,
+  //         counterText: '',
+  //         border: InputBorder.none,
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Widget _buildLoginControlButton() {
     return Material(
@@ -249,7 +190,6 @@ class _AuthPageState extends State<AuthPage> {
                   MaterialPageRoute(
                       builder: (BuildContext context) =>
                           ProfileFormWizardPage()));
-              // Navigator.of(context).pushReplacementNamed('/home');
             }
           });
         },
@@ -264,7 +204,8 @@ class _AuthPageState extends State<AuthPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                _authMode == AuthMode.SIGNUP && _authState != AuthState.VERIFICATION
+                _authMode == AuthMode.SIGNUP &&
+                        _authState != AuthState.VERIFICATION
                     ? 'SignUp'
                     : (_authState == AuthState.LOGIN ? 'LOGIN' : 'VERIFY CODE'),
                 style: TextStyle(
