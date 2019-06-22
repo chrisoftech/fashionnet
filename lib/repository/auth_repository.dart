@@ -5,7 +5,8 @@ enum AuthStatus {
   Uninitialized,
   Authenticated,
   Authenticating,
-  Unauthenticated
+  Unauthenticated,
+  SendingCode
 }
 
 class AuthRepository with ChangeNotifier {
@@ -26,8 +27,7 @@ class AuthRepository with ChangeNotifier {
   String _message = '';
   String _smsController = '';
 
-  // Example code of how to veify phone number
-  void _verifyPhoneNumber({@required String phoneNumber}) async {
+  Future<bool> _verifyPhoneNumber({@required String phoneNumber}) async {
     final PhoneVerificationCompleted verificationCompleted =
         (AuthCredential phoneAuthCredential) {
       _auth.signInWithCredential(phoneAuthCredential);
@@ -55,37 +55,55 @@ class AuthRepository with ChangeNotifier {
 
     print(_message);
 
-    await _auth.verifyPhoneNumber(
-        phoneNumber: phoneNumber,
-        timeout: const Duration(seconds: 5),
-        verificationCompleted: verificationCompleted,
-        verificationFailed: verificationFailed,
-        codeSent: codeSent,
-        codeAutoRetrievalTimeout: codeAutoRetrievalTimeout);
+    try {
+      _status = AuthStatus.SendingCode;
+      notifyListeners();
 
-    notifyListeners();
+      await _auth.verifyPhoneNumber(
+          phoneNumber: phoneNumber,
+          timeout: const Duration(seconds: 5),
+          verificationCompleted: verificationCompleted,
+          verificationFailed: verificationFailed,
+          codeSent: codeSent,
+          codeAutoRetrievalTimeout: codeAutoRetrievalTimeout);
+
+      notifyListeners();
+      return true;
+    } catch (e) {
+      _status = AuthStatus.Unauthenticated;
+      notifyListeners();
+      return false;
+    }
   }
 
-  // Example code of how to sign in with phone.
-  void _signInWithPhoneNumber() async {
-    final AuthCredential credential = PhoneAuthProvider.getCredential(
-      verificationId: _verificationId,
-      smsCode: _smsController,
-    );
-    _user = await _auth.signInWithCredential(credential);
-    _currentUser = await _auth.currentUser();
-    assert(user.uid == _currentUser.uid);
-    
-    notifyListeners();
+  Future<bool> _signInWithPhoneNumber() async {
+    try {
+      _status = AuthStatus.Authenticating;
+      notifyListeners();
 
-    if (user != null) {
-      _message = 'Successfully signed in, uid: ' + user.uid;
-    } else {
-      _message = 'Sign in failed';
+      final AuthCredential credential = PhoneAuthProvider.getCredential(
+        verificationId: _verificationId,
+        smsCode: _smsController,
+      );
+      _user = await _auth.signInWithCredential(credential);
+      _currentUser = await _auth.currentUser();
+      assert(user.uid == _currentUser.uid);
+
+      notifyListeners();
+
+      if (user != null) {
+        _message = 'Successfully signed in, uid: ' + user.uid;
+      } else {
+        _message = 'Sign in failed';
+      }
+      print(_message);
+
+      return true;
+    } catch (e) {
+      _status = AuthStatus.Unauthenticated;
+      notifyListeners();
+      return false;
     }
-    print(_message);
-
-    
   }
 
   Future<void> _signout() {

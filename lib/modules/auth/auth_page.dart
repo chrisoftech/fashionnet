@@ -55,13 +55,22 @@ class _AuthPageState extends State<AuthPage> {
                   _buildLoginFormTitle(),
                   SizedBox(height: 30.0),
                   _authState == AuthState.LOGIN
-                      ? AuthForm()
-                      : VerificationForm(),
-                  Row(
-                    children: <Widget>[
-                      _buildLoginControlButton(),
-                    ],
-                  ),
+                      ? AuthForm(
+                          authMode: _authMode,
+                          onAuthStateChanged:
+                              (AuthState authState, String phoneNumber) {
+                            setState(() {
+                              _authState = authState;
+                              _phoneNumberController = phoneNumber;
+                            });
+                          },
+                        )
+                      : VerificationForm(
+                          onAuthStateChanged:
+                              (AuthState authState, String phoneNumber) {
+                            setState(() => _authState = authState);
+                          },
+                        ),
                 ],
               ),
             ),
