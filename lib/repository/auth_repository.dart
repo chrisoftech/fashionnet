@@ -51,6 +51,7 @@ class AuthRepository with ChangeNotifier {
     final PhoneCodeAutoRetrievalTimeout codeAutoRetrievalTimeout =
         (String verificationId) {
       _verificationId = verificationId;
+      print('Code auto-retrieval time-out');
     };
 
     print(_message);
